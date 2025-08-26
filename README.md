@@ -1,3 +1,51 @@
+Check out the issues section to see our progress and also this issue:
+https://github.com/connectbern/meta/issues/2
+
+
+Some ideas we are thinking of implementing:
+
+
+🏠 Interactive Space Map – Idea 🏠
+
+🍳 Kitchen, 🚿 Bathroom, 🛋 Living Room – all mapped out in the system.
+
+When you go to one of these spots, a website pops up 💻.
+
+Optional: you’re blocked ⛔ until you:
+
+Read the page 📖
+
+Click a confirmation ✅
+
+(Or even answer a short quiz 📝 — maybe too advanced for now).
+
+📍 Two Main Areas in the Map
+
+Connect Bern 🔗
+
+The main interactive map area with different rooms and features.
+
+Staying in Bern 🏡
+
+Part 1: Info & guidelines for volunteers 🤝
+
+Part 2: Social space to meet people 🥳
+
+Day mode 🌞 – lively and welcoming.
+
+Night mode 🌙 – a different look & vibe.
+
+💡 Extra Touch:
+A day/night theme change would make the space feel alive and dynamic ✨.
+
+
+
+
+
+
+Here's the description for the developer:
+
+
 # 🗺️ WorkAdventure Map Starter Kit
 
 <a href="https://discord.gg/G6Xh9ZM9aR" target="blank"><img src="https://img.shields.io/discord/821338762134290432.svg?style=flat&label=Join%20Community&color=7289DA" alt="Join Community Badge"/></a>
