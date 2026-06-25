@@ -1,3 +1,42 @@
+# 🐻 Connect Bern — WorkAdventure Worlds
+
+This repo now contains **10 themed worlds** built around the iconic places of Bern.
+Open `index.html` (the deployed landing page) to see them all with thumbnails and
+Play buttons. Each world is one `.tmj` map file in the repo root.
+
+| World | File | What's special |
+|-------|------|----------------|
+| 🐻 Connect Bern — Hub | `connectbern.tmj` | Central map of Bern landmarks; portals to every world |
+| 🚉 Central Station — Welcome | `station.tmj` | Onboarding guide + "Let's Talk" support corner (issue #2, #5) |
+| 🏠 Staying in Bern | `staying-in-bern.tmj` | Kitchen/bath/living read-&-confirm popups + **day/night** toggle |
+| 📚 Library — Ask Paola | `library.tmj` | Bookshelves open embedded websites; helper NPC |
+| 🏛️ Parliament — Meeting Halls | `parliament.tmj` | Jitsi video chambers + a vote mini-game |
+| 🐻 Bärengraben Trivia | `baerengraben.tmj` | 4-question Bern quiz with scoring |
+| 🕰️ Zytglogge Time Puzzle | `zytglogge.tmj` | Live clock + hour-plate sequence puzzle |
+| 🌹 Rose Garden | `rosengarten.tmj` | Chill social space with city viewpoints |
+| 🏰 Old Town Treasure Hunt | `oldtown.tmj` | 5-clue scavenger hunt around the Münster |
+| 🌊 Aare Float Challenge | `aare-float.tmj` | Timed float Eichholz→Marzili, collect ducks 🦆 |
+
+### 🔁 How to switch between worlds (the `.tmj` files)
+
+1. **From the landing page** (`index.html`): click a world's **Play** button. Open several tabs to try worlds simultaneously.
+2. **In-game:** walk onto a glowing exit tile. The Hub links to all worlds; every world has a portal back.
+3. **By URL:** a world link ends in its map file, e.g. `…/connectbern.tmj`. Change the filename (`library.tmj`, `aare-float.tmj`, …) to load another world.
+
+### 🛠️ Regenerate / edit the maps
+
+The maps are produced by a generator so they're easy to tweak:
+
+```bash
+node tools/generate-maps.mjs            # rebuild all 10 .tmj files
+pwsh -File tools/thumbnails.ps1         # rebuild the 512×512 thumbnails (Windows)
+```
+
+You can also open any `.tmj` in [Tiled](https://www.mapeditor.org/) to edit by hand.
+Each world's interactive script lives in `src/<world>.ts` (shared helpers in `src/lib.ts`).
+
+---
+
 Check out the issues section to see our progress and also this issue:
 https://github.com/connectbern/meta/issues/2
 
