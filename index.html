@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Connect Bern — WorkAdventure Worlds</title>
+  <link rel="icon" href="./images/favicon.svg" type="image/svg+xml" />
+  <style>
+    :root { --red:#e30613; --blue:#4156f6; --ink:#1d2230; --paper:#f7f8fc; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:"Roboto Condensed",Arial,sans-serif; color:var(--ink); background:var(--paper); }
+    header { background:linear-gradient(135deg,#4156f6,#7b3ff2); color:#fff; padding:46px 20px 38px; text-align:center; }
+    header h1 { margin:0 0 6px; font-size:2.5rem; letter-spacing:.5px; }
+    header p { margin:4px auto; max-width:680px; font-size:1.05rem; opacity:.95; }
+    .badge { display:inline-block; background:var(--red); color:#fff; border-radius:20px; padding:3px 12px; font-weight:bold; font-size:.8rem; margin-bottom:10px; }
+    main { max-width:1180px; margin:0 auto; padding:28px 18px 60px; }
+    .how { background:#fff; border:1px solid #e2e6f0; border-radius:14px; padding:20px 24px; margin:0 0 30px; }
+    .how h2 { margin:0 0 10px; font-size:1.25rem; }
+    .how ol { margin:8px 0 0; padding-left:20px; line-height:1.7; }
+    code { background:#eef0f8; padding:1px 6px; border-radius:5px; font-family:"Courier New",monospace; font-size:.9em; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:20px; }
+    .card { background:#fff; border:1px solid #e2e6f0; border-radius:14px; overflow:hidden; display:flex; flex-direction:column; transition:transform .12s, box-shadow .12s; }
+    .card:hover { transform:translateY(-4px); box-shadow:0 12px 28px rgba(65,86,246,.18); }
+    .card .thumb { aspect-ratio:1/1; background:#cfe0a8 center/cover no-repeat; border-bottom:1px solid #e2e6f0; }
+    .card .body { padding:14px 16px 18px; display:flex; flex-direction:column; flex:1; }
+    .card h3 { margin:0 0 6px; font-size:1.2rem; }
+    .card .tag { display:inline-block; background:#eef0f8; color:var(--blue); border-radius:6px; padding:2px 8px; font-size:.74rem; font-weight:bold; margin-bottom:8px; width:fit-content; }
+    .card p { margin:0 0 14px; font-size:.92rem; line-height:1.5; color:#444; flex:1; }
+    .row { display:flex; gap:8px; }
+    a.btn { flex:1; text-align:center; text-decoration:none; font-weight:bold; padding:10px; border-radius:8px; font-size:.92rem; }
+    a.play { background:var(--blue); color:#fff; }
+    a.play:hover { background:#2f43d8; }
+    a.copy { background:#eef0f8; color:var(--ink); cursor:pointer; flex:0 0 auto; }
+    footer { text-align:center; padding:30px; color:#888; font-size:.85rem; }
+    .note { font-size:.82rem; color:#777; margin-top:8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">🐻 CONNECT BERN</div>
+    <h1>Connect Bern — Explore Bern Together</h1>
+    <p>Ten interactive WorkAdventure worlds built around the iconic places of Bern. Wander the city, meet people, play games, and find your way around the community.</p>
+    <p class="note" id="hostnote"></p>
+  </header>
+
+  <main>
+    <div class="how">
+      <h2>🗺️ How to switch between worlds (the <code>.tmj</code> files)</h2>
+      <ol>
+        <li><b>Easiest — use the buttons below.</b> Each card opens one world (one <code>.tmj</code> map) in a new tab. Open several at once to try them simultaneously.</li>
+        <li><b>Inside a world — just walk.</b> Every world has glowing exit tiles; step on one to travel to another world. The <b>Connect Bern Hub</b> links to all of them.</li>
+        <li><b>By hand in the address bar.</b> A world URL ends in its map file, e.g. <code>…/connectbern.tmj</code>. Swap the filename to load a different world — change <code>connectbern.tmj</code> to <code>library.tmj</code>, <code>aare-float.tmj</code>, etc.</li>
+        <li><b>To meet people,</b> share the exact same link: everyone on the same URL lands in the same room.</li>
+      </ol>
+      <p class="note">⚠️ The Play buttons only work once the maps are published to a public host (GitHub Pages). They will not load from <code>localhost</code> because the WorkAdventure play server needs a public URL.</p>
+    </div>
+
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <footer>
+    Built for <a href="https://stayinginbern.ch">Connect Bern</a> · Powered by
+    <a href="https://workadventu.re/">WorkAdventure</a> · Tiles © WorkAdventure (CC-BY-SA 3.0)
+  </footer>
+
+  <script>
+    // Worlds (one .tmj each). Order: hub first, then the rest.
+    const WORLDS = [
+      { file:"connectbern.tmj",     emoji:"🐻", title:"Connect Bern — Hub",        tag:"Start here · portals to all worlds",
+        desc:"The heart of the map: iconic Bern landmarks around the Aare. Walk up to any place for an info bubble, then step into a portal to explore." },
+      { file:"station.tmj",         emoji:"🚉", title:"Central Station — Welcome",  tag:"Onboarding · “Let’s Talk” support",
+        desc:"Your arrival hub. Read the getting-started guide, or wait at the Let’s Talk desk — no camera needed — until someone joins you." },
+      { file:"staying-in-bern.tmj", emoji:"🏠", title:"Staying in Bern",            tag:"Day/night · read-&-confirm rooms",
+        desc:"A volunteer house with kitchen, bathroom and living room guidelines. Flip the light switch to swap between day and night mode." },
+      { file:"library.tmj",         emoji:"📚", title:"Library — Ask Paola",        tag:"Embedded websites · helper NPC",
+        desc:"Browse the shelves to open useful websites (events, German practice, tourism), or ask Paola at the desk for guidance." },
+      { file:"parliament.tmj",      emoji:"🏛️", title:"Parliament — Meeting Halls", tag:"Jitsi video rooms · vote game",
+        desc:"Step into a chamber to start a real video meeting, or call a yes/no vote at the central podium." },
+      { file:"baerengraben.tmj",    emoji:"🐻", title:"Bärengraben Trivia",         tag:"Quiz game · 4 questions",
+        desc:"Visit the famous bear pit and answer four questions about Bern. Score points and try for a perfect run." },
+      { file:"zytglogge.tmj",       emoji:"🕰️", title:"Zytglogge Time Puzzle",      tag:"Puzzle · live clock",
+        desc:"Read the medieval clock, then step on the hour-plates in the right order to unlock the vault." },
+      { file:"rosengarten.tmj",     emoji:"🌹", title:"Rose Garden",                tag:"Chill social space · viewpoints",
+        desc:"A calm ornamental garden with city viewpoints to discover and a cosy corner to sit and chat with others." },
+      { file:"oldtown.tmj",         emoji:"🏰", title:"Old Town Treasure Hunt",     tag:"Scavenger hunt · 5 clues",
+        desc:"Explore historic Bern's arcaded streets, find five hidden clues and uncover the secret of the Münster cathedral." },
+      { file:"aare-float.tmj",      emoji:"🌊", title:"Aare Float Challenge",       tag:"Mini-game · timed run",
+        desc:"Jump in at Eichholz and float down to Marzili — the classic Bern summer ritual. Grab the rubber ducks and beat the clock!" },
+    ];
+
+    // Build the public play URL for a given map from where this page is hosted.
+    const host = window.location.host;
+    let path = window.location.pathname;
+    if (path.endsWith("index.html")) path = path.slice(0, -"index.html".length);
+    if (!path.endsWith("/")) path += "/";
+    const INSTANCE = "global"; // same instance => people share rooms
+    const playUrl = (file) => `https://play.workadventu.re/_/${INSTANCE}/${host}${path}${file}`;
+
+    document.getElementById("hostnote").textContent =
+      (host.includes("localhost") || host.includes("127.0.0.1"))
+        ? "Running locally — publish to GitHub Pages for the Play links to work."
+        : "Hosted at " + host + path;
+
+    const grid = document.getElementById("grid");
+    for (const w of WORLDS) {
+      const url = playUrl(w.file);
+      const thumb = w.file.replace(/\.tmj$/, ".png");
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="thumb" style="background-image:url('${thumb}')"></div>
+        <div class="body">
+          <span class="tag">${w.tag}</span>
+          <h3>${w.emoji} ${w.title}</h3>
+          <p>${w.desc}</p>
+          <div class="row">
+            <a class="btn play" href="${url}" target="_blank" rel="noopener">▶ Play</a>
+            <a class="btn copy" data-url="${url}" title="Copy link">📋</a>
+          </div>
+        </div>`;
+      grid.appendChild(card);
+    }
+    grid.addEventListener("click", (e) => {
+      const c = e.target.closest("a.copy");
+      if (!c) return;
+      e.preventDefault();
+      navigator.clipboard?.writeText(c.dataset.url);
+      const old = c.textContent; c.textContent = "✓"; setTimeout(() => (c.textContent = old), 1000);
+    });
+  </script>
+</body>
+</html>

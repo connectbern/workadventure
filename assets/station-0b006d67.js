@@ -1,0 +1,6 @@
+import{o,p as e}from"./lib-00b1ca0a.js";import"./init-ad207eca.js";o(()=>{WA.room.area.onEnter("welcome").subscribe(()=>e("welcomePopup",`🚉 Welcome to Bern Central Station!
+
+This is your arrival hub. You don't have to talk to anyone — feel free to just hang out and work until someone shows up. When you're ready, read the guide or wait at the Let's Talk desk. 💬`,[{label:"Thanks!",className:"success"}])),WA.room.area.onEnter("infodesk").subscribe(()=>e("infodeskPopup","ℹ️ Getting started in the space",[{label:"What do I do here?",cb:()=>e("infodeskPopup","Stay a while and work in the meantime — no camera or mic needed. When someone joins, you can chat if you like. 🧑‍💻")},{label:"Meeting people?",cb:()=>e("infodeskPopup","Walk near someone to start a video bubble. Specific hours are set for German help, tourism tips and interest groups. 🗓️")},{label:"Explore Bern 🗺️",className:"primary",cb:()=>e("infodeskPopup","Take the portal to the Connect Bern hub to visit all the city's landmarks and mini-games!")}])),WA.room.area.onEnter("lets-talk-sign").subscribe(()=>e("lets-talk-signPopup",`💬 Let's Talk
+
+Need help, or just want company? Wait in this corner — someone from Connect Bern will join you here. No camera required.`)),console.log("Station ready")});
+//# sourceMappingURL=station-0b006d67.js.map
