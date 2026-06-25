@@ -156,10 +156,13 @@ function tileLayer(name, data, w, h, id, visible = true, opacity = 1) {
 function serialize(m, meta) {
   let id = 1;
   const layers = [];
+  // collisions FIRST (bottom): the opaque "ground" fill drawn above hides the
+  // collision tiles in-game, while WA still reads their `collides` property —
+  // exactly how the office starter map avoids showing "BLOCK" markers.
+  layers.push(tileLayer("collisions", m.col, m.w, m.h, id++));
   layers.push(tileLayer("ground", m.ground, m.w, m.h, id++));
   layers.push(tileLayer("deco", m.deco, m.w, m.h, id++));
   if (m.night.some((v) => v)) layers.push(tileLayer("night", m.night, m.w, m.h, id++, false, 0.5));
-  layers.push(tileLayer("collisions", m.col, m.w, m.h, id++));
   layers.push({
     draworder: "topdown", id: id++, name: "floorLayer", opacity: 1,
     objects: m.areas, type: "objectgroup", visible: true, x: 0, y: 0,

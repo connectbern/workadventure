@@ -1,13 +1,13 @@
 /// <reference types="@workadventure/iframe-api-typings" />
 import { onReady, popup } from "./lib";
 
+const WELCOME =
+  "🚉 Welcome to Bern Central Station!\n\nThis is your arrival hub. You don't have to talk to anyone — feel free to just hang out and work until someone shows up. When you're ready, read the guide or wait at the Let's Talk desk. 💬";
+
 onReady(() => {
+  setTimeout(() => popup("welcomePopup", WELCOME, [{ label: "Thanks!", className: "success" }]), 1200);
   WA.room.area.onEnter("welcome").subscribe(() =>
-    popup(
-      "welcomePopup",
-      "🚉 Welcome to Bern Central Station!\n\nThis is your arrival hub. You don't have to talk to anyone — feel free to just hang out and work until someone shows up. When you're ready, read the guide or wait at the Let's Talk desk. 💬",
-      [{ label: "Thanks!", className: "success" }]
-    )
+    popup("welcomePopup", WELCOME, [{ label: "Thanks!", className: "success" }])
   );
 
   WA.room.area.onEnter("infodesk").subscribe(() =>
